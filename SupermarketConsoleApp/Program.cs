@@ -1,4 +1,6 @@
 ﻿using SupermarketConsoleApp.Classes;
+using SupermarketConsoleApp.Payments;
+using SupermarketConsoleApp.Payments.Interface;
 
 internal class Program
 {
@@ -15,8 +17,21 @@ internal class Program
         Product.CreateProduct(Products, "Pepsi-Cola", 7, 45);
         Product.CreateProduct(Products, "Cheese", 8, 15);
         Product.CreateProduct(Products, "Pineapple", 9, 15.50);
-        Product.CreateProduct(Products, "banana", 10, 5.30);
+        Product.CreateProduct(Products, "Water", 10, 5.30);
 
         for (int i = 0; i < Products.Count; i++) Products[i].GetName();
+
+
+        Console.WriteLine("Выберите метод оплаты (1 - Кредитная карта, 2 - PayPal):");
+        string choice = Console.ReadLine();
+
+        IPaymentForm paymentsChoice = choice switch
+        {
+            "1" => new CreditCardPayment(),
+            "2" => new CashPayment()
+        };
+
+        PaymentProcessor paymentProcessor = new PaymentProcessor(paymentsChoice);
+        paymentProcessor.ProcessPayment(1000);
     }
 }
