@@ -39,7 +39,9 @@ namespace SupermarketConsoleApp.Classes
 
         public void GetName()
         {
-            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Id:{ProductId} Назва: {Name} Ціна: {Price}");
         }
+
+        public double GetPrice() { return Price; }
     }
 }
