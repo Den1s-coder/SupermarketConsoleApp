@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupermarketConsoleApp.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace SupermarketConsoleApp.Payments.Interface
 {
     internal interface IPaymentForm
     {
-        void ProcessPayment(double amount);
+        void Count(List<Product> Basket);
     }
 }
