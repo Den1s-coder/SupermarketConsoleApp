@@ -10,8 +10,30 @@ namespace SupermarketConsoleApp.Classes
 {
     class Check
     {
+        CashRegister CashRegister;
         DateTime Time = DateTime.Now;
-        IPaymentForm paymentForm;
+        string PaymentForm;
+        double Amount;
 
+        private Check(CashRegister cashRegister, string paymentForm, double amount)
+        {
+            CashRegister = cashRegister;
+            PaymentForm = paymentForm;
+            Amount = amount;
+        }
+
+        public static void CheckGenerator( CashRegister cashRegister, double amount, string PaymentForm)
+        {
+            cashRegister.GetLogger().Add(new Check(cashRegister, PaymentForm, amount));
+        }
+
+        public static void ShowTransactions(List<Check> Log)
+        {
+            Console.WriteLine();
+            foreach (Check Logs in Log)
+            {
+                Console.WriteLine($"{Logs.Time} => Касса №{Logs.CashRegister.GetId()}, Оплата на сумму = {Logs.Amount}, Форма оплати {Logs.PaymentForm}");
+            }
+        }
     }
 }
