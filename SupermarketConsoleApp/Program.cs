@@ -1,37 +1,55 @@
 ﻿using SupermarketConsoleApp.Classes;
-using SupermarketConsoleApp.Payments;
-using SupermarketConsoleApp.Payments.Interface;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
+
         List<Product> Products = new List<Product>();
 
-        Product.CreateProduct(Products, "banana", 1, 15);
-        Product.CreateProduct(Products, "Bread", 2, 10);
-        Product.CreateProduct(Products, "Fanta", 3, 36.50);
-        Product.CreateProduct(Products, "Milk", 4, 33.70);
-        Product.CreateProduct(Products, "Chocolate Ice Cream", 5, 30);
-        Product.CreateProduct(Products, "Coca-Cola", 6, 37);
-        Product.CreateProduct(Products, "Pepsi-Cola", 7, 45);
-        Product.CreateProduct(Products, "Cheese", 8, 15);
-        Product.CreateProduct(Products, "Pineapple", 9, 15.50);
-        Product.CreateProduct(Products, "Water", 10, 5.30);
+        Product.CreateProduct(Products, "banana", 15);
+        Product.CreateProduct(Products, "Bread", 10);
+        Product.CreateProduct(Products, "Fanta", 36.50);
+        Product.CreateProduct(Products, "Milk", 33.70);
+        Product.CreateProduct(Products, "Chocolate Ice Cream", 30);
+        Product.CreateProduct(Products, "Coca-Cola", 37);
+        Product.CreateProduct(Products, "Pepsi-Cola", 45);
+        Product.CreateProduct(Products, "Cheese", 15);
+        Product.CreateProduct(Products, "Pineapple", 15.50);
+        Product.CreateProduct(Products, "Water", 5.30);
 
-        for (int i = 0; i < Products.Count; i++) Products[i].GetName();
+        CashRegister cashRegister = CashRegister.CreateCashRegister(1, "Model_1", Products);
 
-
-        Console.WriteLine("Выберите метод оплаты (1 - Кредитная карта, 2 - PayPal):");
-        string choice = Console.ReadLine();
-
-        IPaymentForm paymentsChoice = choice switch
+        while (true)
         {
-            "1" => new CreditCardPayment(),
-            "2" => new CashPayment()
-        };
-
-        PaymentProcessor paymentProcessor = new PaymentProcessor(paymentsChoice);
-        paymentProcessor.ProcessPayment(1000);
+        Console.WriteLine("1 Сформувати замовлення\r\n 2 Додати грошей до касси\r\n 3 Зняти кошти\r\n 4 перелiк транзакцій \r\n 5 Додати товар до касси");
+        string Choise = Console.ReadLine();
+        
+            switch (Choise)
+            {
+                case "1":
+                    cashRegister.Basket();
+                    break;
+                case "2":
+                    cashRegister.AddCash();
+                    break;
+                case "3":
+                    cashRegister.WithdrawCash();
+                    break;
+                case "4":
+                    Check.ShowTransactions(cashRegister.GetLogger());
+                    break;
+                case "5":
+                    Product.AddProduct(Products);
+                    break;
+                case "6": return;
+            }
+        }
     }
 }
+
+// 1 Сформувати замовлення
+// 2 Додати грошей до касси
+// 3 Зняти кошти
+// 4 перелік транзакцій 
+// 5 Додати товар до касси
