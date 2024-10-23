@@ -1,4 +1,5 @@
-﻿using SupermarketConsoleApp.Payments.Interface;
+﻿using SupermarketConsoleApp.Classes;
+using SupermarketConsoleApp.Payments.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace SupermarketConsoleApp.Payments
             PaymentForm = paymentForm;
         }
 
-        public void ProcessPayment(double amount) 
+        public void ProcessPayment(List<Product> Basket) 
         {
-            PaymentForm.ProcessPayment(amount);
+            PaymentForm.Count(Basket);
         }
     }
 }
